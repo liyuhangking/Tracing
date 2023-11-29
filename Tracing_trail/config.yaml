@@ -1,0 +1,26 @@
+cam_id: 1
+min_radius: 640
+min_contour: 800
+Vision_Mode: True
+serialport_mode: True
+Debug: 2
+
+
+serial_config:
+  port: /dev/ttyUSB0
+  baudrate: 115200
+  bytesize: 8
+  parity: none
+  stopbits: 1
+
+signal_values:
+  header: 0xFF
+  mode: 0x00
+  x_pos_1: 0x00
+  x_pos_2: 0x00
+  x_pos_3: 0x00
+  y_pos_1: 0x00
+  y_pos_2: 0x00
+  y_pos_3: 0x00
+  color: 0x00
+  tail: 0xFE

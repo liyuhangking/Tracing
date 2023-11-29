@@ -1,5 +1,6 @@
 import cv2
 import serailport
+import parameter as para
 import numpy as np
 
 def calculate_angle(line1, line2):
@@ -151,7 +152,10 @@ def main():
             break
 
         image, point1, angle = find_color_boundary(frame, point1, angle)
-        dis = [abs(point1[0] - 320), abs(point1[1] - 640)]
+        dis = [abs(int(point1[0] - point2[0])), abs(int(point1[1] - point2[1]))]
+
+        para.Object_Data.angle = int(angle[0])
+        para.Object_Data.dis = dis
 
         print("distance", dis)
         print("角度 = ", angle)
@@ -167,5 +171,5 @@ def main():
 
 if __name__ == "__main__":
 
-    # serailport.Serial_Start()
+    serailport.Serial_Start()
     main()

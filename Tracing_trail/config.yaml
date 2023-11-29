@@ -22,5 +22,5 @@ signal_values:
   y_pos_1: 0x00
   y_pos_2: 0x00
   y_pos_3: 0x00
-  color: 0x00
+  angle: 0x00
   tail: 0xFE

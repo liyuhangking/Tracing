@@ -19,12 +19,12 @@ send_byte = bytearray([config["signal_values"]["header"],
                        config["signal_values"]["y_pos_1"],
                        config["signal_values"]["y_pos_2"],
                        config["signal_values"]["y_pos_3"], 
-                       config["signal_values"]["color"], 
+                       config["signal_values"]["angle"], 
                        config["signal_values"]["tail"]])
 
 receive_byte = bytearray([config["signal_values"]["header"], 
                           config["signal_values"]["mode"], 
-                          config["signal_values"]["color"], 
+                          config["signal_values"]["angle"], 
                           config["signal_values"]["tail"]])
 
 def serial_init():
@@ -71,11 +71,11 @@ def receive_serial_data(ser):
 def send_serial_data(serial):
     send_data = send_byte
     if parameter.Mode.task_detect != 7:
-        center = parameter.Object_Data.center
-        print(center)
-        color = parameter.Object_Data.color
-        center0 = center[0]
-        center1 = center[1]
+        dis = parameter.Object_Data.dis
+        print(dis)
+        angle = parameter.Object_Data.angle
+        center0 = dis[0]
+        center1 = dis[1]
         send_data[1] = parameter.Mode.task_detect
 
         send_data[2] = center0 & 0xFF
@@ -85,7 +85,7 @@ def send_serial_data(serial):
         send_data[6] = ((center1 >> 8) & 0xFF)
         send_data[7] = ((center1 >> 16) & 0xFF)
 
-        send_data[8] =  color
+        send_data[8] =  angle
         serial.write(send_data)
     if parameter.Mode.task_detect == 7:
 
@@ -107,11 +107,11 @@ def receive_thread(serial):
 def send_thread(serial):
     
     while True:
-        if parameter.Mode.task_detect is not 0:
+        if parameter.Mode.task_detect != 0:
             send_serial_data(serial)
         else:
-            parameter.Object_Data.center = (0, 0)
-            parameter.Object_Data.color = 0x00
+            parameter.Object_Data.dis = (0, 0)
+            parameter.Object_Data.angle = 0x00
         
 def Serial_Start():
     ser = serial_init()

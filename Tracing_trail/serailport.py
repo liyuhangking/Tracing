@@ -74,16 +74,16 @@ def send_serial_data(serial):
         dis = parameter.Object_Data.dis
         print(dis)
         angle = parameter.Object_Data.angle
-        center0 = dis[0]
-        center1 = dis[1]
+        dis0 = dis[0]
+        dis1 = dis[1]
         send_data[1] = parameter.Mode.task_detect
 
-        send_data[2] = center0 & 0xFF
-        send_data[3] = (center0 >> 8) & 0xFF
-        send_data[4] = (center0 >> 16) & 0xFF
-        send_data[5] = (center1 & 0xFF)
-        send_data[6] = ((center1 >> 8) & 0xFF)
-        send_data[7] = ((center1 >> 16) & 0xFF)
+        send_data[2] = dis0 & 0xFF
+        send_data[3] = (dis0 >> 8) & 0xFF
+        send_data[4] = (dis0 >> 16) & 0xFF
+        send_data[5] = (dis1 & 0xFF)
+        send_data[6] = ((dis1 >> 8) & 0xFF)
+        send_data[7] = ((dis1 >> 16) & 0xFF)
 
         send_data[8] =  angle
         serial.write(send_data)
@@ -110,7 +110,7 @@ def send_thread(serial):
         if parameter.Mode.task_detect != 0:
             send_serial_data(serial)
         else:
-            parameter.Object_Data.dis = (0, 0)
+            parameter.Object_Data.dis = [0, 0]
             parameter.Object_Data.angle = 0x00
         
 def Serial_Start():

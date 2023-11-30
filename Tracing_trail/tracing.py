@@ -1,7 +1,13 @@
 import cv2
 import serailport
 import parameter as para
+import yaml
 import numpy as np
+
+with open("config.yaml", 'r') as file:
+    config = yaml.load(file, Loader=yaml.FullLoader)
+
+serialport_mode = config["serialport_mode"]
 
 def calculate_angle(line1, line2):
     """
@@ -171,5 +177,7 @@ def main():
 
 if __name__ == "__main__":
 
-    serailport.Serial_Start()
+    if serialport_mode:
+        serailport.Serial_Start()
+    
     main()

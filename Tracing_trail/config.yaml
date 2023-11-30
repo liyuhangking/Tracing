@@ -2,7 +2,8 @@ cam_id: 1
 min_radius: 640
 min_contour: 800
 Vision_Mode: True
-serialport_mode: True
+serialport_mode: False
+print_mode: False
 Debug: 2
 
 

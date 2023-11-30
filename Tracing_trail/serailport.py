@@ -23,8 +23,7 @@ send_byte = bytearray([config["signal_values"]["header"],
                        config["signal_values"]["tail"]])
 
 receive_byte = bytearray([config["signal_values"]["header"], 
-                          config["signal_values"]["mode"], 
-                          config["signal_values"]["angle"], 
+                          config["signal_values"]["mode"],  
                           config["signal_values"]["tail"]])
 
 def serial_init():
@@ -60,7 +59,6 @@ def receive_serial_data(ser):
                 else:   #正常及多位
                     if received_data[len(received_data)-4] == 255:
                         parameter.Mode.task_detect = received_data[1]
-                        parameter.Mode.color_detect = received_data[2]
                         print(time.strftime('Receive:%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
                         print(received_data)
                 received_data = bytearray()  # 重置接收数据
@@ -70,7 +68,7 @@ def receive_serial_data(ser):
 # 生成串口数据、发送数据
 def send_serial_data(serial):
     send_data = send_byte
-    if parameter.Mode.task_detect != 7:
+    if parameter.Mode.task_detect == 1:
         dis = parameter.Object_Data.dis
         print(dis)
         angle = parameter.Object_Data.angle
@@ -87,15 +85,15 @@ def send_serial_data(serial):
 
         send_data[8] =  angle
         serial.write(send_data)
-    if parameter.Mode.task_detect == 7:
+    # if parameter.Mode.task_detect == 7:
 
-        send_data[1] = parameter.Mode.task_detect
+    #     send_data[1] = parameter.Mode.task_detect
 
-        for i in range(6):
-            send_data[i+2]=parameter.WiFi_Scan.task_number[i]
+    #     for i in range(6):
+    #         send_data[i+2]=parameter.WiFi_Scan.task_number[i]
 
-        send_data[8] =  0x00
-        serial.write(send_data)
+    #     send_data[8] =  0x00
+    #     serial.write(send_data)
     print(time.strftime('Send:%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
     print(send_data)
     time.sleep(0.2)

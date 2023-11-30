@@ -147,6 +147,7 @@ def find_color_boundary(frame, point, angle):
 
 def main():
     cap = cv2.VideoCapture(0)  # 打开摄像头，0表示默认摄像头
+    cap.set(cv2.CAP_PROP_FOURCC,cv2.VideoWriter_fourcc('M','J','P','G'))
 
     point1 = (0, 0)
     point2 = (320, 640)

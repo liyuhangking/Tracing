@@ -85,15 +85,6 @@ def send_serial_data(serial):
 
         send_data[8] =  angle
         serial.write(send_data)
-    # if parameter.Mode.task_detect == 7:
-
-    #     send_data[1] = parameter.Mode.task_detect
-
-    #     for i in range(6):
-    #         send_data[i+2]=parameter.WiFi_Scan.task_number[i]
-
-    #     send_data[8] =  0x00
-    #     serial.write(send_data)
     print(time.strftime('Send:%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
     print(send_data)
     time.sleep(0.2)
